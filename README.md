@@ -1,33 +1,70 @@
-codingTest
-Recently Played Songs Store
-This is a Java program that implements an in-memory store for recently played songs. The store can accommodate N songs per user, with a fixed initial capacity. It allows storing a list of song-user pairs, with each song linked to a user. The store also automatically removes the least recently played songs when it becomes full.
+# Recently Played Songs Memory
 
-Table of Contents
-Overview
-Example
-Usage
-Dependencies
-Testing
-Contributing
-License
-Overview
-The program includes two classes:
+This project provides an in-memory store for managing recently played songs per user. It can accommodate a fixed number of songs per user and manages the capacity by eliminating the least recently played songs when the store becomes full.
 
-RecentlyPlayedSongsStore: Represents the in-memory store for recently played songs. It has methods to add recently played songs for a user and fetch the recently played songs for a user.
-RecentlyPlayedSongsStoreTest: Contains JUnit tests to verify the functionality of the RecentlyPlayedSongsStore class.
-Example
-Illustration, when 4 different songs were played by a user & Initial capacity is 3: Let's assume that the user has played 3 songs - S1, S2, and S3. The playlist would look like -> S1, S2, S3 When S4 song is played -> S2, S3, S4 When S2 song is played -> S3, S4, S2 When S1 song is played -> S4, S2, S1
+## Overview
 
-Usage
-To use the RecentlyPlayedSongsStore class in your Java project, follow these steps:
+The goal of this project is to create an in-memory store that can hold recently played songs for multiple users. The store has the following features:
 
-Clone or download the repository.
-Copy the RecentlyPlayedSongsStore.java file to your project.
-Import the necessary packages as shown in the examples.
-Dependencies
-The RecentlyPlayedSongsStore class does not have any external dependencies other than standard Java libraries.
+- Each user can have a list of recently played songs.
+- The store can accommodate a specified number of songs per user.
+- When a new song is added for a user, the least recently played song is removed if the capacity is exceeded.
 
-Testing
-JUnit 5 is used for testing the functionality of the RecentlyPlayedSongsStore class. The test class RecentlyPlayedSongsStoreTest contains test cases that ensure the correct behavior of the class.
+## Usage
 
-To run the tests, you can use any IDE with JUnit support or use Maven with the command "mvn test".
+To use this in-memory store, follow these steps:
+
+1. Instantiate a `RecentlyPlayedSongsMemory` object with the desired initial capacity:
+
+    ```java
+    int initialCapacity = 3;
+    RecentlyPlayedSongsMemory memory = new RecentlyPlayedSongsMemory(initialCapacity);
+    ```
+
+2. Add recently played songs for a user:
+
+    ```java
+    memory.addRecentlyPlayedSong("User1", "S1");
+    memory.addRecentlyPlayedSong("User1", "S2");
+    memory.addRecentlyPlayedSong("User1", "S3");
+    ```
+
+3. Retrieve a user's recently played songs:
+
+    ```java
+    LinkedList<String> user1Songs = memory.getRecentlyPlayedSongs("User1");
+    ```
+
+4. Play new songs for a user:
+
+    ```java
+    memory.addRecentlyPlayedSong("User1", "S4");
+    ```
+
+5. Display the updated list of recently played songs:
+
+    ```java
+    LinkedList<String> user1UpdatedSongs = memory.getRecentlyPlayedSongs("User1");
+    ```
+
+## Code Explanation
+
+The core features of this project are implemented through the `RecentlyPlayedSongsMemory` class. The key methods and their explanations are as follows:
+
+- `addRecentlyPlayedSong(String user, String song)`: Adds a recently played song for a user. If the user's list exceeds the capacity, the least recently played song is removed.
+
+- `getRecentlyPlayedSongs(String user)`: Retrieves the list of recently played songs for a user. If the user doesn't exist, an empty list is returned.
+
+- The `computeIfAbsent` method is used to ensure that each user has an associated list of songs. If the user key is not present in the map, a new `LinkedList` is created for that user.
+
+## Example
+
+Please refer to the provided code examples in the source files for a detailed illustration of how to use the `RecentlyPlayedSongsMemory` class.
+
+## License
+
+This project is licensed under the MIT License. Feel free to use and modify it according to your needs.
+
+---
+
+For more information, feel free to reach out to the author.
