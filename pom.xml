@@ -3,4 +3,13 @@
   <groupId>com.testvagrant</groupId>
   <artifactId>testvagrant</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-</project>
+  <dependencies>
+	  <dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>7.8.0</version>
+    
+</dependency>
+	  
+  </dependencies>
+  </project>
